@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "description": "Maker Lab microbit extension for DATA 115",
   "dependencies": {
-  "core": "*",
-  "datalogger": "*"
-}
+    "core": "*",
+    "datalogger": "*"
+  },
   "files": [
     "main.ts",
     "sensors.ts",
