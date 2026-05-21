@@ -16,7 +16,6 @@
         "lighting.ts",
         "encoder.ts",
         "imu.ts",
-        "logging.ts",
         "dashboards.ts",
         "displays.ts"
     ],
