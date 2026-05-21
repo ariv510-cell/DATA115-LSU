@@ -1,5 +1,5 @@
 {
-    "name": "data115-full",
+    "name": "Data-115---MicroBit-Sensors"
     "version": "0.0.2",
     "description": "Data115 / Maker Lab MakeCode extension with OLED graphics, raw LCD1602, sensors, datalogger, IMU helpers, encoder, displays, LEDs, servos, and motor helpers.",
     "dependencies": {
