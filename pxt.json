@@ -1,28 +1,32 @@
 {
-  "name": "data115microbitsensors",
-  "version": "0.0.1",
-  "description": "Maker Lab microbit extension for DATA 115",
-  "dependencies": {
-    "core": "*",
-    "datalogger": "*"
-  },
-  "files": [
-    "main.ts",
-    "sensors.ts",
-    "imu.ts",
-    "oledgfx.ts",
-    "lcd1602.ts",
-    "logging.ts",
-    "motion.ts",
-    "lighting.ts",
-    "dashboards.ts",
-    "encoder.ts",
-    "displays.ts",
-    "environment.ts"
-  ],
-  "supportedTargets": [
-    "microbit"
-  ],
-  "preferredEditor": "blocksprj",
-  "public": true
+    "name": "data115lsu",
+    "version": "1.0.0",
+    "description": "Maker Lab microbit extension for DATA 115 at La Sierra University",
+    "license": "MIT",
+    "dependencies": {
+        "core": "*"
+    },
+    "files": [
+        "main.ts",
+        "lcd1602.ts",
+        "oledgfx.ts",
+        "sensors.ts",
+        "environment.ts",
+        "motion.ts",
+        "lighting.ts",
+        "encoder.ts",
+        "imu.ts",
+        "logging.ts",
+        "dashboards.ts",
+        "displays.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "public": true,
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "tsprj",
+    "icon": "card.png"
 }
