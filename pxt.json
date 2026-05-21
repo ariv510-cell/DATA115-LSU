@@ -1,6 +1,7 @@
 {
-  "name": "Data-115---MicroBit-Sensors",
-  "description": "Maker Lab microbit extension",
+  "name": "data115microbitsensors",
+  "version": "0.0.1",
+  "description": "Maker Lab microbit extension for DATA 115",
   "dependencies": {
     "core": "*"
   },
@@ -21,5 +22,6 @@
   "supportedTargets": [
     "microbit"
   ],
-  "preferredEditor": "blocksprj"
+  "preferredEditor": "blocksprj",
+  "public": true
 }
