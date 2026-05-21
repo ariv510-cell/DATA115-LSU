@@ -1,0 +1,6 @@
+Data115OLED.init(0x3C)
+Data115OLED.status("DATA115", "READY")
+basic.pause(1000)
+Data115OLED.bar(512, 1023, "LIGHT")
+basic.pause(1000)
+Data115OLED.explosion()
