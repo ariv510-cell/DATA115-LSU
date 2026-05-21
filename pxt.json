@@ -18,7 +18,6 @@
         "lcd1602.ts",
         "displays.ts",
         "dashboards.ts",
-        "logging.ts"
     ],
     "public": true,
     "icon": "icon.png"
