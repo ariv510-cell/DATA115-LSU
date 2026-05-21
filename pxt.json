@@ -8,24 +8,18 @@
     },
     "files": [
         "main.ts",
-        "lcd1602.ts",
-        "oledgfx.ts",
         "sensors.ts",
         "environment.ts",
         "motion.ts",
         "lighting.ts",
         "encoder.ts",
         "imu.ts",
+        "oledgfx.ts",
+        "lcd1602.ts",
+        "displays.ts",
         "dashboards.ts",
-        "displays.ts"
-    ],
-    "testFiles": [
-        "test.ts"
+        "logging.ts"
     ],
     "public": true,
-    "supportedTargets": [
-        "microbit"
-    ],
-    "preferredEditor": "tsprj",
-    "icon": "card.png"
+    "icon": "icon.png"
 }
