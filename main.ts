@@ -1,11 +1,9 @@
-basic.forever(function () {
+// DATA115 LSU extension main file
+// Do not put test code here.
 
-    Data115OLED.init()
-
-    Data115OLED.smiley()
-    basic.pause(1000)
-
-    Data115OLED.blink()
-    basic.pause(300)
-
-})
+namespace Data115 {
+    //% block="DATA115 hello"
+    export function hello(): void {
+        basic.showString("DATA115")
+    }
+}
