@@ -1,72 +1,44 @@
 for PXT/microbit
 
-# Data-115---MicroBit-Sensors
+# data115microbitsensors
 
-![icon](icon.png)
+![Data 115](card.png)
 
-Maker Lab classroom extension for micro:bit.
+Maker Lab micro:bit extension for DATA 115.
 
-This extension combines:
-- Sensors
-- OLED graphics
-- LCD1602 displays
-- MPU6050 motion sensing
-- Rotary encoders
-- LEDs and RGB lighting
-- Motors and servos
-- Datalogger helpers
+## Features
+- Raw LCD1602 support (no backpack)
+- OLED graphics and animations
+- Sensor helper functions
+- MPU6050 IMU support
+- Rotary encoder support
+- Environmental sensors
+- Motion sensors
+- Lighting modules
+- Datalogger integration
 - Dashboard displays
-- Robotics utilities
+- Custom Maker Lab blocks
 
-Designed for DATA 115 and Maker Lab projects.
+## Supported Hardware
+- BBC micro:bit
+- LCD1602 Displays
+- SSD1306 OLED Displays
+- MPU6050 / GY-521
+- Rotary Encoders
+- DHT11 Sensors
+- Ultrasonic Sensors
+- LEDs and RGB modules
+- Buzzers
+- Shock / Tilt sensors
+- Light sensors
+- Sound sensors
 
-## Included Features
+## Installation
+1. Open MakeCode for micro:bit
+2. Go to Extensions
+3. Search:
+   data115microbitsensors
+4. Add the extension
 
-### Displays
-- OLED text
-- OLED shapes
-- OLED lines
-- OLED rectangles
-- OLED circles
-- OLED animations
-- Raw LCD1602 support
-
-### Sensors
-- Light sensor
-- Sound sensor
-- Soil moisture
-- Temperature
-- Humidity
-- Motion detection
-- Shock sensor
-- Ultrasonic distance
-- MPU6050 accelerometer + gyroscope
-
-### Motion
-- Servo control
-- Motor helpers
-- Encoder support
-
-### Lighting
-- RGB LEDs
-- Neopixels
-- Brightness control
-- Effects
-
-### Data
-- Built-in datalogger helpers
-- Dashboard systems
-- Live sensor displays
-
-## Example
-
-```typescript
-OLED.init(128, 64)
-OLED.writeString("DATA 115")
-
-basic.forever(function () {
-    OLED.clear()
-    OLED.writeString("Tilt:")
-    OLED.writeNum(input.rotation(Rotation.Roll))
-    basic.pause(100)
-})
+## Creator
+Created for Maker Lab DATA 115.
