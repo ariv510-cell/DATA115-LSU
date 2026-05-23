@@ -1,81 +1,53 @@
 namespace Data115OLED {
 
     let initialized = false
-    let addr = 0x3C
 
-    function cmd(c: number): void {
-        let b = pins.createBuffer(2)
-        b[0] = 0x00
-        b[1] = c
-        pins.i2cWriteBuffer(addr, b)
-    }
-
-    function data(d: number): void {
-        let b = pins.createBuffer(2)
-        b[0] = 0x40
-        b[1] = d
-        pins.i2cWriteBuffer(addr, b)
-    }
-
+    //% block="OLED initialize"
     export function init(): void {
-        cmd(0xAE)
-        cmd(0xA4)
-        cmd(0xD5)
-        cmd(0xF0)
-        cmd(0xA8)
-        cmd(0x3F)
-        cmd(0xD3)
-        cmd(0x00)
-        cmd(0x40)
-        cmd(0x8D)
-        cmd(0x14)
-        cmd(0x20)
-        cmd(0x00)
-        cmd(0xA1)
-        cmd(0xC8)
-        cmd(0xDA)
-        cmd(0x12)
-        cmd(0x81)
-        cmd(0xCF)
-        cmd(0xD9)
-        cmd(0xF1)
-        cmd(0xDB)
-        cmd(0x40)
-        cmd(0xA6)
-        cmd(0xAF)
 
-        clear()
+        pins.i2cWriteNumber(
+        0x3C,
+        0xAF,
+        NumberFormat.UInt8BE,
+        false
+        )
+
         initialized = true
     }
 
+    //% block="OLED clear"
     export function clear(): void {
-        for (let page = 0; page < 8; page++) {
-            cmd(0xB0 + page)
-            cmd(0x00)
-            cmd(0x10)
 
-            for (let i = 0; i < 128; i++) {
-                data(0x00)
+        for (let i = 0; i < 8; i++) {
+
+            pins.i2cWriteBuffer(0x3C, pins.createBuffer(2))
+
+            for (let j = 0; j < 128; j++) {
+
+                let buf = pins.createBuffer(2)
+
+                buf[0] = 0x40
+                buf[1] = 0x00
+
+                pins.i2cWriteBuffer(0x3C, buf)
             }
         }
     }
 
-    export function pixel(x: number, y: number): void {
-        let page = Math.idiv(y, 8)
-
-        cmd(0xB0 + page)
-        cmd(x & 0x0F)
-        cmd(0x10 | (x >> 4))
-
-        data(1 << (y % 8))
-    }
-
-    export function line(x0: number, y0: number, x1: number, y1: number): void {
+    //% block="OLED line x0 $x0 y0 $y0 x1 $x1 y1 $y1"
+    export function line(
+    x0: number,
+    y0: number,
+    x1: number,
+    y1: number
+    ): void {
 
         let dx = Math.abs(x1 - x0)
         let sx = x0 < x1 ? 1 : -1
+
         let dy = -Math.abs(y1 - y0)
         let sy = y0 < y1 ? 1 : -1
+
         let err = dx + dy
 
         while (true) {
@@ -100,45 +72,104 @@ namespace Data115OLED {
         }
     }
 
-    export function rect(x: number, y: number, w: number, h: number): void {
+    //% block="OLED rectangle x $x y $y w $w h $h"
+    export function rect(
+    x: number,
+    y: number,
+    w: number,
+    h: number
+    ): void {
 
         line(x, y, x + w, y)
         line(x, y + h, x + w, y + h)
+
         line(x, y, x, y + h)
         line(x + w, y, x + w, y + h)
     }
 
+    //% block="OLED pixel x $x y $y"
+    export function pixel(x: number, y: number): void {
+
+        let page = Math.idiv(y, 8)
+
+        let buf = pins.createBuffer(3)
+
+        buf[0] = 0x00
+        buf[1] = 0xB0 + page
+        buf[2] = x & 0x7F
+
+        pins.i2cWriteBuffer(0x3C, buf)
+
+        let data = pins.createBuffer(2)
+
+        data[0] = 0x40
+        data[1] = 1 << (y % 8)
+
+        pins.i2cWriteBuffer(0x3C, data)
+    }
+
+    //% block="OLED circle x $x y $y r $r"
+    export function circle(
+    x0: number,
+    y0: number,
+    r: number
+    ): void {
+
+        let x = r
+        let y = 0
+
+        let err = 0
+
+        while (x >= y) {
+
+            pixel(x0 + x, y0 + y)
+            pixel(x0 + y, y0 + x)
+
+            pixel(x0 - y, y0 + x)
+            pixel(x0 - x, y0 + y)
+
+            pixel(x0 - x, y0 - y)
+            pixel(x0 - y, y0 - x)
+
+            pixel(x0 + y, y0 - x)
+            pixel(x0 + x, y0 - y)
+
+            y += 1
+
+            if (err <= 0) {
+                err += 2 * y + 1
+            }
+
+            if (err > 0) {
+                x -= 1
+                err -= 2 * x + 1
+            }
+        }
+    }
+
+    //% block="OLED smiley"
     export function smiley(): void {
 
         clear()
 
-        rect(20, 5, 80, 50)
+        circle(64, 32, 25)
 
-        rect(35, 18, 8, 8)
-        rect(75, 18, 8, 8)
+        circle(54, 24, 3)
+        circle(74, 24, 3)
 
-        line(40, 40, 80, 40)
-        line(40, 41, 80, 41)
+        for (let x = -12; x <= 12; x++) {
 
-        line(40, 40, 50, 48)
-        line(50, 48, 70, 48)
-        line(70, 48, 80, 40)
+            let y = Math.sqrt(144 - (x * x))
+
+            pixel(
+            64 + x,
+            38 + Math.round(y / 3)
+            )
+        }
     }
 
-    export function blink(): void {
+    //% block="OLED show"
+    export function show(): void {
 
-        clear()
-
-        rect(20, 5, 80, 50)
-
-        line(35, 22, 45, 22)
-        line(75, 22, 85, 22)
-
-        line(40, 40, 80, 40)
-        line(40, 41, 80, 41)
-
-        line(40, 40, 50, 48)
-        line(50, 48, 70, 48)
-        line(70, 48, 80, 40)
     }
 }
