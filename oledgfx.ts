@@ -41,21 +41,26 @@ namespace Data115OLED {
         }
     }
 
-    //% block="OLED show"
-    export function show(): void {
-        cmd(0x21); cmd(0); cmd(127)
-        cmd(0x22); cmd(0); cmd(7)
+   //% block="OLED show"
+export function show(): void {
 
-        for (let page = 0; page < 8; page++) {
-            let b = pins.createBuffer(129)
+    for (let page = 0; page < 8; page++) {
+
+        cmd(0xB0 + page)
+        cmd(0x00)
+        cmd(0x10)
+
+        for (let col = 0; col < 128; col++) {
+
+            let b = pins.createBuffer(2)
+
             b[0] = 0x40
-            for (let i = 0; i < 128; i++) {
-                b[i + 1] = buffer[page * 128 + i]
-            }
+            b[1] = buffer[page * 128 + col]
+
             pins.i2cWriteBuffer(addr, b)
         }
     }
-
+}
     //% block="OLED pixel x $x y $y"
     export function pixel(x: number, y: number): void {
         if (x < 0 || x > 127 || y < 0 || y > 63) return
