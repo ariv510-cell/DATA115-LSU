@@ -19,7 +19,8 @@
         "displays.ts",
         "dashboards.ts",
         "keypad.ts",
-        "arcade.ts"
+        "arcade.ts",
+        "joystick.ts"
     ],
     "public": true,
     "icon": "icon.png"
