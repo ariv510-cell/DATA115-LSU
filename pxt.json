@@ -18,7 +18,8 @@
         "lcd1602.ts",
         "displays.ts",
         "dashboards.ts",
-        "keypad.ts"
+        "keypad.ts",
+        "arcade.ts"
     ],
     "public": true,
     "icon": "icon.png"
