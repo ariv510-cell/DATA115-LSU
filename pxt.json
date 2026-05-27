@@ -17,7 +17,8 @@
         "oledgfx.ts",
         "lcd1602.ts",
         "displays.ts",
-        "dashboards.ts"
+        "dashboards.ts",
+        "keypad.ts"
     ],
     "public": true,
     "icon": "icon.png"
